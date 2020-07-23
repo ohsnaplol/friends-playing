@@ -1,0 +1,29 @@
+{
+  "name": "friends-playing",
+  "version": "1.0.0",
+  "description": "Discord bot that posts to a channel when at least two people are playing the same game in a voice channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohsnaplol/friends-playing.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "friends",
+    "playing"
+  ],
+  "author": "Marcello Galvan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ohsnaplol/friends-playing/issues"
+  },
+  "homepage": "https://github.com/ohsnaplol/friends-playing#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
+  }
+}
