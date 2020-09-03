@@ -8,17 +8,35 @@ client.once('ready', () => {
 
 client.on('message', message => {
 	if (message.content == '!letsplay') {
-		const memberId = message.member.id;
-		const memberPresence = message.member.presence.status
-		// list of users in channel
-		const voiceChannelMembers = message.member.voice.channel.members
-		// WHY LIMIT IT TO NEEDING TO BE IN VOICE CHANNEL???
-		// presence of the users in channel
-		// console.log(voiceChannelMembers.)
-		// if any match the same game send people message ohsnaplol and Fuzzles are playing Gears of War. Come join them!
-
-		let invitation = "Let's play!"
-		// message.channel.send(invitation)
+		const senderPresence = message.member.presence.activities
+		if (!senderPresence[0]) {
+			return message.channel.send(`Sorry ${message.author.username}, you are not playing anything!`)
+		}
+		const senderGame = senderPresence[0].name
+		const senderType = senderPresence[0].type
+		const guildMembers = message.guild.members.cache
+		const membersPlayingSameGame = guildMembers.filter(member => {
+			// Ignore self
+			if (message.author.id === member.id) {
+				return false
+			}
+			if (member.presence.activities[0]) {
+				const memberGame = member.presence[0].name
+				const memberType = member.presence[0].type
+				return memberType === senderType && memberGame === senderGame
+			}
+			return false
+		})
+		if (membersPlayingSameGame.size < 1) {
+			return message.channel.send(`${message.author.username} wants to play some ${senderGame}!`)
+		}
+		const nicknames = membersPlayingSameGame.map(member => {
+			return member.user.username
+		})
+		if (membersPlayingSameGame.size === 1) {
+			return message.channel.send(`${message.author.username} and ${nicknames} wants to play some ${senderGame}!`)
+		}
+		return message.channel.send(`${message.author.username}, ${nicknames} are playing ${senderPresence[0].name}! Come join them!`)
 	}
 });
 
