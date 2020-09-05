@@ -21,8 +21,9 @@ client.on('message', message => {
 				return false
 			}
 			if (member.presence.activities[0]) {
-				const memberGame = member.presence[0].name
-				const memberType = member.presence[0].type
+				console.log(member.presence.activities)
+				const memberGame = member.presence.activities[0].name
+				const memberType = member.presence.activities[0].type
 				return memberType === senderType && memberGame === senderGame
 			}
 			return false
